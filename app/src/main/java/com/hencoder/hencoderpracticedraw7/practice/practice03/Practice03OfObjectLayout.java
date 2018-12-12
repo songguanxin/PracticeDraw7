@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.content.Context;
 import android.graphics.PointF;
+import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -48,11 +49,16 @@ public class Practice03OfObjectLayout extends RelativeLayout {
     }
 
     private class PointFEvaluator implements TypeEvaluator<PointF> {
+        PointF pointF = new PointF();
 
         // 重写 evaluate() 方法，让 PointF 可以作为属性来做动画
+
         @Override
         public PointF evaluate(float fraction, PointF startValue, PointF endValue) {
-            return startValue;
+            float x = startValue.x + fraction * (endValue.x - startValue.x);
+            float y = startValue.y + fraction * (endValue.y - startValue.y);
+            pointF.set(x,y);
+            return pointF;
         }
     }
 }
